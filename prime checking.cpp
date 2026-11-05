@@ -1,0 +1,66 @@
+#include <bits/stdc++.h>
+using namespace std;
+using u128 = unsigned __int128;
+using u64 = uint64_t;
+
+
+u64 mulmod(u64 a, u64 b, u64 mod)
+{
+    return (u128)a * b % mod;
+}
+u64 modexp(u64 base, u64 exp, u64 mod)
+{
+    u64 result = 1;
+    base %= mod;
+    while (exp > 0)
+    {
+        if (exp & 1) result = mulmod(result, base, mod);
+        base = mulmod(base, base, mod);
+        exp >>= 1;
+    }
+    return result;
+}
+bool isPrime(u64 n)
+ {
+    if (n < 2) return false;
+    for (u64 p : {2, 3, 5, 7, 11, 13, 17, 19, 23, 29, 31, 37})
+        if (n % p == 0) return n == p;
+
+    u64 d = n - 1, s = 0;
+    while ((d & 1) == 0)
+    {
+        d >>= 1;
+        s++;
+    }
+    for (u64 a : {2, 325, 9375, 28178, 450775, 9780504, 1795265022})
+     {
+        if (a % n == 0) continue;
+        u64 x = modexp(a, d, n);
+        if (x == 1 || x == n - 1) continue;
+        bool composite = true;
+        for (u64 r = 1; r < s; r++)
+         {
+            x = mulmod(x, x, n);
+            if (x == n - 1)
+             {
+                composite = false;
+                break;
+            }
+        }
+        if (composite) return false;
+    }
+    return true;
+}
+
+int main()
+ {
+    unsigned long long n;
+    cin >> n;
+
+    if (isPrime(n))
+        cout <<"YES"<<endl;
+    else
+        cout <<"NO"<<endl;
+
+    return 0;
+}

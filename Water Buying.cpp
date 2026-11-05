@@ -1,0 +1,31 @@
+#include<bits/stdc++.h>
+using namespace std;
+#define fast ios::sync_with_stdio(false); cin.tie(NULL);
+#define ll long long
+#define vi vector<long long>
+bool cmp(pair<int,int> a, pair<int,int> b){
+    if(a.second == b.second)
+        return a.first < b.first;
+    return a.second < b.second;
+}
+int main()
+{
+    fast
+    ll t;
+    cin>>t;
+    while(t--)
+    {
+        ll n,a,b;
+        cin>>n>>a>>b;
+        if(a*2LL<=b)
+        {
+            cout<<n*a<<endl;
+        }
+        else
+        {
+            ll sum=(n/2LL)*b;
+            sum+=(n%2LL)*a;
+            cout<<sum<<endl;
+        }
+    }
+}
