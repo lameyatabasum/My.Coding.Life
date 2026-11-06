@@ -6,6 +6,8 @@ int main()
     cin>>t;
     while(t--)
     {
+        //comment
+        
         long long n;
         cin>>n;
         if(n==1)
